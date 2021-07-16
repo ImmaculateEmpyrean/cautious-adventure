@@ -118,7 +118,8 @@
 			<!-- start displaying the pagination.. so that the table can be populated with whatever is needed -->
 
 			<!-- start construction of modals for the two primary buttons-->
-			<div class="modal is-active" id="new-button-modal">
+			<!-- start construction of modal for new transaction -->
+			<div class="modal" id="new-button-modal">
 				<div class="modal-background"></div>
 				<div class="modal-card">
 				  <header class="modal-card-head">
@@ -126,7 +127,6 @@
 					<button class="delete"></button>
 				  </header>
 				  <section class="modal-card-body">
-					
 						<!-- start display enter transaction amount -->
 						<div class="field">
 							<label class="label">Transaction Amount</label>
@@ -142,7 +142,6 @@
 							</div>
 					  	</div>
 						<!-- ended display enter transaction amount -->
-
 						<!-- start display enter optional comment -->
 						<div class="field">
 							<label class="label">Comment</label>
@@ -151,7 +150,6 @@
 							</p>
 						  </div>
 						<!-- ended display enter optional comment -->
-
 						<!-- start display select initiator -->
 						<div class="control is-pulled-right">
 							<span class="select">
@@ -166,15 +164,34 @@
 							</span>
 						</div>
 						<!-- ended display select initialtor -->
-
 				  </section>
 				  <footer class="modal-card-foot">
 					<button class="button is-success">Credit</button>
 					<button class="button is-danger">Debit</button>
 				  </footer>
 				</div>
-			  </div>
-
+			</div>
+			<!-- ended construction of modal for new transaction -->
+			<!-- start construction of modal for filter button -->
+			<div class="modal is-active" id="new-button-modal">
+				<div class="modal-background"></div>
+				<div class="modal-card">
+				  <header class="modal-card-head">
+					<p class="modal-card-title">Add Filter Tags</p>
+					<button class="delete"></button>
+				  </header>
+				  <section class="modal-card-body">
+					<input type="date">
+					
+			 
+				  </section>
+				  <footer class="modal-card-foot">
+					<button class="button is-success">Credit</button>
+					<button class="button is-danger">Debit</button>
+				  </footer>
+				</div>
+			</div>
+			<!-- ended construction of modal for filter button -->
 
 			<!-- ended construction of modals for the two primary buttons -->
 
