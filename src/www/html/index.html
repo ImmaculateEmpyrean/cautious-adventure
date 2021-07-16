@@ -181,13 +181,70 @@
 					<button class="delete"></button>
 				  </header>
 				  <section class="modal-card-body">
-					<input type="date">
-					
+					<!-- start displaying the start date and end date filters -->
+					<div class="columns">
+						<div class="column">
+							<div class="field">
+								<div class="label">
+									Start Date - 
+								</div>
+								<input type="date">
+							</div>
+						</div>	
+						<div class="column">
+							<div class="field">
+								<div class="label">
+									End Date -
+								</div>
+								<input type="date">
+							</div>
+						</div>
+					</div>
+					<!-- ended displaying the start date and end date filters -->
+					<!-- start displaying filter on credit debit or all-->
+					<div class="field">
+						<div class="label">
+							Filter on (credit | debit | none)
+						</div>
+						<div class="control">
+							<span class="select">
+							  <select class="select">
+								<option value="none" selected disabled hidden>
+									-- Filter On --
+								</option>
+								<option value="None">None</option>
+								<option value="Credit">Credit</option>
+								<option value="Debit">Debit</option>
+							  </select>
+							</span>
+						</div>
+					</div>
+					<!-- ended displaying filter on credit debit or all -->
+					<!-- start displaying filter on stamp -->
+					<div class="field">
+						<div class="label">
+							Filter on (veeru | nanna | srivee | all)
+						</div>
+						<div class="control">
+							<span class="select">
+							  <select class="select">
+								<option value="none" selected disabled hidden>
+									-- Filter On --
+								</option>
+								<option value="Veeru">Veeru</option>
+								<option value="Nanna">Nanna</option>
+								<option value="Srivee">Srivee</option>
+								<option value="All">All</option>
+							  </select>
+							</span>
+						</div>
+					</div>
+					<!-- ended displaying filter on stamp -->
 			 
 				  </section>
 				  <footer class="modal-card-foot">
-					<button class="button is-success">Credit</button>
-					<button class="button is-danger">Debit</button>
+					<button class="button is-link">OK</button>
+					<!-- <button class="button is-danger">Cancel Changes</button> -->
 				  </footer>
 				</div>
 			</div>
