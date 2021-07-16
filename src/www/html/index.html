@@ -9,57 +9,75 @@
 		<script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 	</head>
 	<body>
+		<!-- start displaying the container so that the budget book can be centered on the screen -->
 		<div class="container">
-			<div class="hero is-fullheight">
-				<div class="hero-head">
-					<section class="hero is-medium is-primary">
-						<div class="hero-body">
-							<p class="title has-text-centered is-size-1">Budget Book</p>
-						</div>
-						<div class="hero-foot">
-							<div class="columns">
-								<div class="column is-mobile-6">
-									<p class="subtitle is-size-2 has-text-left">
-										<span
-											class="iconify"
-											data-inline="false"
-											data-icon="clarity:rupee-line"
-										></span
-										>2000
-									</p>
-								</div>
-								<div class="column is-mobile-6">
-									<p class="subtitle is-size-2 has-text-right">
-										Last :
-										<span style="color: red; text-transform: none">500</span
-										><span
-											class="iconify"
-											data-inline="false"
-											data-icon="bi:arrow-down"
-											style="color: red"
-										></span>
-									</p>
-								</div>
-							</div>
-						</div>
-					</section>
+			<!-- start displaying the main heading section of the webPage -->
+			<section class="hero is-primary block">
+				<div class="hero-body">
+					<h1 class="title is-size-1 has-text-centered">Budget Book</h1>
 				</div>
-				<div class="hero-foot">
-					<section class="hero is-info">
-						<div class="hero-body">
-							<div class="columns">
-								<div class="column is-mobile-6">
-									<a class="button is-success is-large">Credit</a>
-									<a class="button is-danger is-large">Debit</a>
-								</div>
-								<div class="column is-mobile-6 has-text-right">
-									<a class="button is-link is-large">View All Transactions</a>
-								</div>
-							</div>
+			</section>
+			<!-- ended displaying the main heading section of the webPage -->
+
+			<!-- start displaying the main tool-bar -->
+			<section class="block">
+				<!-- start displaying the main columns of the tool-bar -->
+				<div class="columns">
+					<!-- start displaying column-1 with the primary buttons -->
+					<div class="column">
+						<a href="" class="button is-link is-medium">New</a>
+						<a href="" class="button is-dark is-medium">Filter</a>
+					</div>
+					<!-- ended displaying column-1 with the primary buttons -->
+					<!-- start displaying column-2 with shows filter tags applied -->
+					<div class="column">
+						<div class="block">
+							Filters :
+							<span class="tag is-dark">Dark</span>
+							<span class="tag is-dark">Dark</span>
+							<span class="tag is-dark">Dark</span>
+							<span class="tag is-dark">Dark</span>
+							<span class="tag is-dark">Dark</span>
+							<span class="tag is-dark">Dark</span>
+							<span class="tag is-dark">Dark</span>
+							<span class="tag is-dark">Dark</span>
+							<span class="tag is-dark">Dark</span>
+							<span class="tag is-dark">Dark</span>
 						</div>
-					</section>
+					</div>
+					<!-- ended displaying column-2 with shows filter tags applied -->
+					<!-- start displaying column-3 which shows available balance as of now -->
+					<div class="column">
+						<div class="block is-pulled-right">
+							Balance :
+							<span
+								class="iconify"
+								data-inline="false"
+								data-icon="teenyicons:rupee-solid"
+							></span>
+							5000
+						</div>
+					</div>
+					<!-- ended displaying column-3 which shows available balance as of now -->
 				</div>
-			</div>
+				<!-- ended displaying the main columns of the tool-bar -->
+			</section>
+			<!-- ended displaying the main tool-bar -->
+
+			<!-- start displaying the transaction table.. the meat of this application -->
+			<section class="box">
+				<table class="table is-bordered is-striped is-hoverable is-fullwidth">
+					<thead>
+						<th class="is-narrow">Index</th>
+						<th class="has-text-centered">Transaction</th>
+						<th class="has-text-centered">Date</th>
+						<th class="has-text-right">Balance</th>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</section>
+			<!-- start displaying the transaction table.. the meat of this application -->
 		</div>
+		<!-- ended displaying the container so that the budget book can be centered on the screen -->
 	</body>
 </html>
