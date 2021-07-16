@@ -173,7 +173,7 @@
 			</div>
 			<!-- ended construction of modal for new transaction -->
 			<!-- start construction of modal for filter button -->
-			<div class="modal is-active" id="new-button-modal">
+			<div class="modal" id="filter-button-modal">
 				<div class="modal-background"></div>
 				<div class="modal-card">
 				  <header class="modal-card-head">
@@ -249,8 +249,55 @@
 				</div>
 			</div>
 			<!-- ended construction of modal for filter button -->
-
 			<!-- ended construction of modals for the two primary buttons -->
+
+			<!-- start construction of modal for detailed table entry -->
+			<div class="modal is-active" id="detailed-table-entry-modal">
+				<div class="modal-background"></div>
+				<div class="modal-card">
+				  <header class="modal-card-head">
+					<p class="modal-card-title" id="transaction-date-time-display"> 
+						Tuesday June 11th 2021 <br> 4:30PM
+					</p>
+					<button class="delete"></button>
+				  </header>
+				  <section class="modal-card-body">
+					
+					<!-- start display numerical values of great importance -->
+					<div class="block">
+						<p class="title is-size-5 ">
+							Transaction Amount : <span id="transaction-amount-display">-500</span>
+						</p>
+						
+						<p class="title is-size-5 is-marginless">
+							Remaining Balance At That Time : <span id="transaction-balance-prev-display">5000</span>
+						</p>
+						<p class="title is-size-5 is-marginless">
+							Remaining Balance Now : <span id="transaction-balance-display">5000</span>
+						</p>
+					</div>
+					<!-- ended display numerical values of great importance -->
+					<!-- start display of comment attached to the transaction -->
+					<div class="block">
+						<p class="subtitle is-size-5">
+							Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptates illum facere ratione perferendis est a aliquid numquam repellendus dolores dolore.
+						</p>
+					</div>
+					<!-- ended display of comment attached to the transaction -->
+					<!-- start display of signature attached to the transaction -->
+					<div class="block">
+						<p class="title">Veer</p>
+					</div>
+					<!-- ended display of signature attached to the transaction -->
+				  </section>
+				  <footer class="modal-card-foot">
+					<button class="button is-link is-pulled-right">OK</button>
+				  </footer>
+				</div>
+			</div>
+			<!-- ended construction of modal for detailed table entry -->
+
+
 
 		</div>
 		<!-- ended displaying the container so that the budget book can be centered on the screen -->
