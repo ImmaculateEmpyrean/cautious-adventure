@@ -116,6 +116,65 @@
 				  </nav>
 			</section>
 			<!-- start displaying the pagination.. so that the table can be populated with whatever is needed -->
+
+			<!-- start construction of modals for the two primary buttons-->
+			<div class="modal is-active" id="new-button-modal">
+				<div class="modal-background"></div>
+				<div class="modal-card">
+				  <header class="modal-card-head">
+					<p class="modal-card-title">Record New Transaction</p>
+					<button class="delete"></button>
+				  </header>
+				  <section class="modal-card-body">
+					
+						<!-- start display enter transaction amount -->
+						<div class="field">
+							<label class="label">Transaction Amount</label>
+							<div class="control has-icons-left">
+								<span class="icon">
+									<span
+										class="iconify"
+										data-inline="false"
+										data-icon="teenyicons:rupee-solid">
+									</span>
+								</span>
+								<input type="number" class="input" placeholder="Enter Amount">	
+							</div>
+					  	</div>
+						<!-- ended display enter transaction amount -->
+
+						<!-- start display enter optional comment -->
+						<div class="field">
+							<label class="label">Comment</label>
+							<p class="control">
+							  <textarea class="textarea" placeholder="Write a comment for this transaction optionally."></textarea>
+							</p>
+						  </div>
+						<!-- ended display enter optional comment -->
+
+						<!-- start display select initiatior -->
+						<div class="control is-pulled-right">
+							<span class="select">
+							  <select>
+								<option>Veeru</option>
+								<option>Nanna</option>
+								<option>Srivee</option>
+							  </select>
+							</span>
+						</div>
+						<!-- ended display select initialtor -->
+
+				  </section>
+				  <footer class="modal-card-foot">
+					<button class="button is-success">Credit</button>
+					<button class="button is-danger">Debit</button>
+				  </footer>
+				</div>
+			  </div>
+
+
+			<!-- ended construction of modals for the two primary buttons -->
+
 		</div>
 		<!-- ended displaying the container so that the budget book can be centered on the screen -->
 	</body>
