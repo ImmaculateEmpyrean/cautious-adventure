@@ -33,16 +33,18 @@
 					<div class="column">
 						<div class="block">
 							Filters :
-							<span class="tag is-dark">Dark</span>
-							<span class="tag is-dark">Dark</span>
-							<span class="tag is-dark">Dark</span>
-							<span class="tag is-dark">Dark</span>
-							<span class="tag is-dark">Dark</span>
-							<span class="tag is-dark">Dark</span>
-							<span class="tag is-dark">Dark</span>
-							<span class="tag is-dark">Dark</span>
-							<span class="tag is-dark">Dark</span>
-							<span class="tag is-dark">Dark</span>
+							<span id="filter-tags-display">
+								<span class="tag is-dark">Dark</span>
+								<span class="tag is-dark">Dark</span>
+								<span class="tag is-dark">Dark</span>
+								<span class="tag is-dark">Dark</span>
+								<span class="tag is-dark">Dark</span>
+								<span class="tag is-dark">Dark</span>
+								<span class="tag is-dark">Dark</span>
+								<span class="tag is-dark">Dark</span>
+								<span class="tag is-dark">Dark</span>
+								<span class="tag is-dark">Dark</span>
+							</span>
 						</div>
 					</div>
 					<!-- ended displaying column-2 with shows filter tags applied -->
@@ -55,7 +57,7 @@
 								data-inline="false"
 								data-icon="teenyicons:rupee-solid"
 							></span>
-							5000
+							<span id="balance-amount-display">5000</span>
 						</div>
 					</div>
 					<!-- ended displaying column-3 which shows available balance as of now -->
@@ -73,10 +75,47 @@
 						<th class="has-text-centered">Date</th>
 						<th class="has-text-right">Balance</th>
 					</thead>
-					<tbody></tbody>
+					<tbody id="table-rows">
+						<tr id="table-row">
+							<td>1.</td>
+							<td class="has-text-centered">
+								<span class="iconify" data-inline="false" data-icon="teenyicons:rupee-solid"></span> 
+								500 Credited
+							</td>
+							<td class="has-text-centered">19-Jan-2021 5:00 pm</td>
+							<td class="has-text-right">4000/-</td>
+						</tr>
+						<tr id="table-row">
+							<td>2.</td>
+							<td class="has-text-centered">
+								<span class="iconify" data-inline="false" data-icon="teenyicons:rupee-solid"></span> 
+								400 Debited
+							</td>
+							<td class="has-text-centered">21-Jan-2021 10:00 pm</td>
+							<td class="has-text-right">4400/-</td>
+						</tr>
+					</tbody>
 				</table>
 			</section>
-			<!-- start displaying the transaction table.. the meat of this application -->
+			<!-- ended displaying the transaction table.. the meat of this application -->
+
+			<!-- start displaying the pagination.. so that the table can be populated with whatever is needed -->
+			<section>
+				<nav class="pagination" role="navigation" aria-label="pagination">
+					<a class="pagination-previous">Previous</a>
+					<a class="pagination-next">Next page</a>
+					<ul class="pagination-list">
+					  <li><a class="pagination-link">1</a> </li>
+					  <li><span class="pagination-ellipsis">&hellip;</span></li>
+					  <li><a class="pagination-link">45</a></li>
+					  <li><a class="pagination-link is-current">46</a></li>
+					  <li><a class="pagination-link">47</a></li>
+					  <li><span class="pagination-ellipsis">&hellip;</span></li>
+					  <li><a class="pagination-link">86</a></li>
+					</ul>
+				  </nav>
+			</section>
+			<!-- start displaying the pagination.. so that the table can be populated with whatever is needed -->
 		</div>
 		<!-- ended displaying the container so that the budget book can be centered on the screen -->
 	</body>
