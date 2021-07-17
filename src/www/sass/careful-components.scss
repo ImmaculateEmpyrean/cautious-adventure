@@ -1,0 +1,11 @@
+@use "colors.scss" as *;
+
+.money-display{
+    &.positive{
+        color: $success;
+    }
+
+    &.negative{
+        color: $danger;
+    }
+}

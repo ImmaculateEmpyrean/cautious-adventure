@@ -1,4 +1,4 @@
-import "./sass/bulma.scss";
+import "./sass/style.scss";
 import bulmaCalendar from 'bulma-calendar/dist/js/bulma-calendar.min.js';
 
 // initialize the bulma calandar npm plugin I doewnloaded from the internet
