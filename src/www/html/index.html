@@ -79,8 +79,10 @@
 						<tr id="table-row">
 							<td>1.</td>
 							<td class="has-text-centered">
-								<span class="iconify" data-inline="false" data-icon="teenyicons:rupee-solid"></span> 
-								500 Credited
+								<span class="money-display positive">
+									<span class="iconify" data-inline="false" data-icon="teenyicons:rupee-solid"></span>
+									500 Credited
+								</span>
 							</td>
 							<td class="has-text-centered">19-Jan-2021 5:00 pm</td>
 							<td class="has-text-right">4000/-</td>
@@ -88,8 +90,10 @@
 						<tr id="table-row">
 							<td>2.</td>
 							<td class="has-text-centered">
-								<span class="iconify" data-inline="false" data-icon="teenyicons:rupee-solid"></span> 
-								400 Debited
+								<span class="money-display negative">
+									<span class="iconify" data-inline="false" data-icon="teenyicons:rupee-solid"></span> 
+									400 Debited
+								</span>
 							</td>
 							<td class="has-text-centered">21-Jan-2021 10:00 pm</td>
 							<td class="has-text-right">4400/-</td>
@@ -173,7 +177,7 @@
 			</div>
 			<!-- ended construction of modal for new transaction -->
 			<!-- start construction of modal for filter button -->
-			<div class="modal is-active" id="filter-button-modal">
+			<div class="modal" id="filter-button-modal">
 				<div class="modal-background"></div>
 				<div class="modal-card">
 				  <header class="modal-card-head">
@@ -261,7 +265,7 @@
 			<!-- ended construction of modals for the two primary buttons -->
 
 			<!-- start construction of modal for detailed table entry -->
-			<div class="modal" id="detailed-table-entry-modal">
+			<div class="modal is-active" id="detailed-table-entry-modal">
 				<div class="modal-background"></div>
 				<div class="modal-card">
 				  <header class="modal-card-head">
@@ -276,8 +280,8 @@
 					<div class="block">
 						<p class="title is-size-5 ">
 							Transaction Amount : 
-								<span class="money-display"> 
-									-<span class="iconify" data-inline="false" data-icon="teenyicons:rupee-outline"></span>500
+								<span class="money-display positive"> 
+									<span class="iconify" data-inline="false" data-icon="teenyicons:rupee-outline"></span>500 Credited
 								</span>	
 						</p>
 						
