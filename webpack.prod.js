@@ -28,16 +28,6 @@ module.exports = merge(common, {
 				removeComments: true,
 			},
 		}),
-		new HtmlWebpackPlugin({
-			filename: "table-display.html",
-			template: "./src/www/html/table-display.html",
-			chunks: ["vendor", "tableDisplay"],
-			minify: {
-				removeAttributeQuotes: true,
-				collapseWhitespace: true,
-				removeComments: true,
-			},
-		}),
 		new MiniCssExtractPlugin({
 			filename: "[name].[hash].css",
 		}),

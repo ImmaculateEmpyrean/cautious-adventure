@@ -14,12 +14,7 @@ module.exports = merge(common, {
 			filename: "index.html",
 			template: "./src/www/html/index.html",
 			chunks: ["vendor", "index"],
-		}),
-		new HtmlWebpackPlugin({
-			filename: "table-display.html",
-			template: "./src/www/html/table-display.html",
-			chunks: ["vendor", "tableDisplay"],
-		}),
+		})
 	],
 	module: {
 		rules: [
