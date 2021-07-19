@@ -16,7 +16,7 @@ const express = require('express');
 //connect to the database in question for this project
 const {Client} = require('pg');
 const database = new Client({
-    user:"empyreanBot",
+    user:"empyreanbot",
     password: "ns782110",
     host: "localhost",
     port: "5432",
@@ -46,7 +46,7 @@ app.get("/",function(req,res){
 //this method is used to get the records to be displayed to the user..
 app.get("/records",function(req,res){
     // req.query has all the key value pairs
-        
+
 })
 
 //this method is used to post a new record into the database..
