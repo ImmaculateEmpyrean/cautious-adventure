@@ -13,6 +13,19 @@ const {htmlParser} = require("node-html-parser");
 const nodemailer = require("nodemailer");
 const express = require('express');
 
+//connect to the database in question for this project
+const {Client} = require('pg');
+const database = new Client({
+    user:"empyreanBot",
+    password: "ns782110",
+    host: "localhost",
+    port: "5432",
+    database: "budgetapp"
+});
+database.connect().then(function(){
+    console.log('connected to the database successfully');
+});
+
 //setting up the app also to handle post requests
 const app = express();
 app.use(express.urlencoded({extended: true}));
@@ -31,9 +44,9 @@ app.get("/",function(req,res){
 })
 
 app.get("/records",function(req,res){
-    console.log(req.query);
-    console.log('logged app.get(records)');
-    res.json({
-        recieved: true
-    })
+    // console.log(req.query);
+    // console.log('logged app.get(records)');
+    // res.json({
+    //     recieved: true
+    // })
 })
