@@ -85,7 +85,12 @@
 								</span>
 							</td>
 							<td class="has-text-centered">19-Jan-2021 5:00 pm</td>
-							<td class="has-text-right">4000/-</td>
+							<td class="has-text-right">
+								<span class="money-display">
+									<span class="iconify" data-inline="false" data-icon="teenyicons:rupee-solid"></span> 
+									4000/- 
+								</span>
+							</td>
 						</tr>
 						<tr id="table-row">
 							<td>2.</td>
@@ -96,7 +101,12 @@
 								</span>
 							</td>
 							<td class="has-text-centered">21-Jan-2021 10:00 pm</td>
-							<td class="has-text-right">4400/-</td>
+							<td class="has-text-right">
+								<span class="money-display">
+									<span class="iconify" data-inline="false" data-icon="teenyicons:rupee-solid"></span> 
+									4400/- 
+								</span>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -265,7 +275,7 @@
 			<!-- ended construction of modals for the two primary buttons -->
 
 			<!-- start construction of modal for detailed table entry -->
-			<div class="modal is-active" id="detailed-table-entry-modal">
+			<div class="modal" id="detailed-table-entry-modal">
 				<div class="modal-background"></div>
 				<div class="modal-card">
 				  <header class="modal-card-head">
@@ -293,20 +303,24 @@
 							</span>
 						</p>
 						<p class="title is-size-5 is-marginless">
-							Remaining Balance Now : <span id="transaction-balance-display">5000</span>
+							Remaining Balance Now : <span id="transaction-balance-display">
+								<span class="money-display"> 
+									<span class="iconify" data-inline="false" data-icon="teenyicons:rupee-outline"></span>5000
+								</span>
+							</span>
 						</p>
 					</div>
 					<!-- ended display numerical values of great importance -->
 					<!-- start display of comment attached to the transaction -->
 					<div class="block">
-						<p class="subtitle is-size-5">
+						<p class="subtitle is-size-5" id="message-display">
 							Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptates illum facere ratione perferendis est a aliquid numquam repellendus dolores dolore.
 						</p>
 					</div>
 					<!-- ended display of comment attached to the transaction -->
 					<!-- start display of signature attached to the transaction -->
 					<div class="block">
-						<p class="title">Veer</p>
+						<p class="title" id="stamp-display">Veer</p>
 					</div>
 					<!-- ended display of signature attached to the transaction -->
 				  </section>
@@ -316,9 +330,6 @@
 				</div>
 			</div>
 			<!-- ended construction of modal for detailed table entry -->
-
-
-
 		</div>
 		<!-- ended displaying the container so that the budget book can be centered on the screen -->
 	</body>
