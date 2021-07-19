@@ -23,7 +23,7 @@ const database = new Client({
     database: "budgetapp"
 });
 database.connect().then(function(){
-    console.log('connected to the database successfully');
+    console.log('connected to the database successfully...');
 });
 
 //setting up the app also to handle post requests
@@ -43,10 +43,33 @@ app.get("/",function(req,res){
     res.sendFile(path.resolve(__dirname,"./www/index.html"));
 })
 
+//this method is used to get the records to be displayed to the user..
 app.get("/records",function(req,res){
-    // console.log(req.query);
-    // console.log('logged app.get(records)');
-    // res.json({
-    //     recieved: true
-    // })
+    // req.query has all the key value pairs
+        
+})
+
+//this method is used to post a new record into the database..
+app.post("/records",async function(req,res){
+    try{
+        await database.connect(); //connect to the database in question
+        await database.query('begin'); //start the transaction in question
+
+        let result = await database.query(`select * from budgetrecord order by id desc limit 1`);
+        let remBalance = result[0].remainingbalance + req.body.transaction;
+
+        await database.query(`insert into\
+                            budgetrecord(instigator,comment,dateandtime,transaction,remainingbalance)\
+                            values(${req.body.instigator},${req.body.comment}\
+                            ,CURRENT_TIMESTAMP,${req.body.transaction},${remBalance})`);
+
+        await database.query('commit'); //the transaction is finished.. reflect the changes inside the db
+    } catch (error) {
+        console.log(`error ocurred while communicating with the database ${error}`)
+        await database.query('rollback');
+    }
+    finally {
+        database.end();
+        console.log("closed connection to the database successfully")
+    }
 })

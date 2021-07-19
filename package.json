@@ -7,7 +7,7 @@
 	"scripts": {
 		"start": "webpack serve --config webpack.dev.js --open",
 		"build": "webpack --config webpack.prod.js",
-		"back-end:dev" : "nodemon ./src/server.js DEV",
+		"back-end:dev": "nodemon ./src/server.js DEV",
 		"back-end:prod": "node ./src/server.js PROD"
 	},
 	"repository": {
@@ -43,7 +43,6 @@
 		"bulma": "^0.9.3",
 		"bulma-calendar": "^6.1.9",
 		"express": "^4.17.1",
-		"node": "^16.5.0",
 		"node-html-parser": "^4.1.0",
 		"nodemailer": "^6.6.3",
 		"pg": "^8.6.0"
