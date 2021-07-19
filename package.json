@@ -3,10 +3,12 @@
 	"name": "budgeting-app",
 	"version": "1.0.0",
 	"description": "Budgeting App Using Technology Postgress And Bulma... ",
-	"main": "main.js",
+	"main": "server.js",
 	"scripts": {
 		"start": "webpack serve --config webpack.dev.js --open",
-		"build": "webpack --config webpack.prod.js"
+		"build": "webpack --config webpack.prod.js",
+		"back-end:dev" : "nodemon ./src/server.js DEV",
+		"back-end:prod": "node ./src/server.js PROD"
 	},
 	"repository": {
 		"type": "git",
@@ -26,6 +28,7 @@
 		"html-loader": "^2.1.2",
 		"html-webpack-plugin": "^5.3.2",
 		"mini-css-extract-plugin": "^2.1.0",
+		"nodemon": "^2.0.12",
 		"sass": "^1.35.2",
 		"sass-loader": "^12.1.0",
 		"style-loader": "^3.1.0",
@@ -36,8 +39,13 @@
 		"webpack-merge": "^5.8.0"
 	},
 	"dependencies": {
+		"body-parser": "^1.19.0",
 		"bulma": "^0.9.3",
 		"bulma-calendar": "^6.1.9",
+		"express": "^4.17.1",
+		"node": "^16.5.0",
+		"node-html-parser": "^4.1.0",
+		"nodemailer": "^6.6.3",
 		"pg": "^8.6.0"
 	}
 }
