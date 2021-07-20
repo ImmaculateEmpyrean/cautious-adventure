@@ -104,6 +104,14 @@ function transactionAmountFieldInvalid()
     transactionAmountField.classList.add('is-danger');
     transactionAmountControl.classList.add('has-icons-right');
     transactionAmountFieldStatusIcon.classList.remove('is-hidden');
+
+    let errorMessage = document.createElement('div');
+    errorMessage.classList.add("error-message");
+    errorMessage.innerHTML = '<p class="subtitle is-size-6 has-text-danger">Please enter a positive number</p>';
+
+    transactionAmountField.parentNode.append(errorMessage);
+
+    transactionAmountFieldStatusIcon.innerHTML = exclamationIcon;
 }
 function transactionAmountFieldNormal(){
     transactionAmountField.classList.remove('is-danger');
@@ -111,6 +119,10 @@ function transactionAmountFieldNormal(){
 
     transactionAmountControl.classList.remove('has-icons-right');
     transactionAmountFieldStatusIcon.classList.add('is-hidden');
+
+    let errorMessage = transactionAmountField.parentNode.querySelector('.error-message');
+    if(errorMessage != null) 
+        errorMessage.remove();
 }
 function transactionAmountFieldValid()
 {
@@ -118,6 +130,8 @@ function transactionAmountFieldValid()
     transactionAmountField.classList.add('is-success');
     transactionAmountControl.classList.add('has-icons-right');
     transactionAmountFieldStatusIcon.classList.remove('is-hidden');
+
+    transactionAmountFieldStatusIcon.innerHTML = tickIcon;
 }
 
 function transactionInitiatorFieldInvalid(){
