@@ -7,6 +7,7 @@
 		<title>Budget?</title>
 
 		<script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	</head>
 	<body>
 		<!-- start displaying the container so that the budget book can be centered on the screen -->
@@ -25,8 +26,8 @@
 				<div class="columns">
 					<!-- start displaying column-1 with the primary buttons -->
 					<div class="column">
-						<a href="" class="button is-link is-medium">New</a>
-						<a href="" class="button is-dark is-medium">Filter</a>
+						<a href="" class="button is-link is-medium" id="new-button">New</a>
+						<a href="" class="button is-dark is-medium" id="filter-button">Filter</a>
 					</div>
 					<!-- ended displaying column-1 with the primary buttons -->
 					<!-- start displaying column-2 with shows filter tags applied -->
@@ -133,7 +134,7 @@
 
 			<!-- start construction of modals for the two primary buttons-->
 			<!-- start construction of modal for new transaction -->
-			<div class="modal is-active" id="new-button-modal">
+			<div class="modal" id="new-button-modal">
 				<div class="modal-background"></div>
 				<div class="modal-card">
 				  <header class="modal-card-head">
@@ -144,7 +145,7 @@
 						<!-- start display enter transaction amount -->
 						<div class="field">
 							<label class="label">Transaction Amount</label>
-							<div class="control has-icons-left">
+							<div class="control has-icons-left" id="transaction-amount-control">
 								<span class="icon">
 									<span
 										class="iconify"
@@ -152,7 +153,13 @@
 										data-icon="teenyicons:rupee-solid">
 									</span>
 								</span>
-								<input type="number" class="input" placeholder="Enter Amount">	
+								<span class="icon is-right is-hidden" id="input-transaction-amount-field-status">
+									<span class="icon is-small">
+										<i class="fas fa-exclamation-triangle"></i>
+									</span>
+								</span>
+								<input type="number" class="input" min="1" placeholder="Enter Amount" id="input-transaction-amount">
+								
 							</div>
 					  	</div>
 						<!-- ended display enter transaction amount -->
@@ -160,14 +167,14 @@
 						<div class="field">
 							<label class="label">Comment</label>
 							<p class="control">
-							  <textarea class="textarea" placeholder="Write a comment for this transaction optionally."></textarea>
+							  <textarea class="textarea" placeholder="Write a comment for this transaction optionally." id="input-transaction-comment"></textarea>
 							</p>
 						  </div>
 						<!-- ended display enter optional comment -->
 						<!-- start display select initiator -->
 						<div class="control is-pulled-right">
 							<span class="select">
-							  <select class="select">
+							  <select class="select" id="input-transaction-initiator">
 								<option value="none" selected disabled hidden>
 									-- Select Initiator Of This Transaction --
 								</option>
