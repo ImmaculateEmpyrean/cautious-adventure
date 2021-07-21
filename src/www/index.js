@@ -1,3 +1,5 @@
+//import { axios } from "axios/dist/axios";
+const axios = require('axios').default;
 import onLoad from "./js/onLoad.js";
 
 let FmodalActive = false;
@@ -86,7 +88,22 @@ onLoad(function(){
             FallValid = false;
         }
         else transactionInitiatorFieldValid();
-        
+
+        if(FallValid === true){
+            //start posting to the database at this point..
+            axios.post('/records', {
+               transaction: transactionAmount,
+               instigator: transactionInitiator,
+               comment: transactionComment
+            }).then(
+                function(){
+                    console.log("successfully pushed the post request");
+                }
+            ).catch(function(error){
+                console.log('error communicating with the server');
+                console.log(error);
+            })
+        }
     });
     debitButton.addEventListener('click',function(e){
 

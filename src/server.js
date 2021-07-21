@@ -25,6 +25,7 @@ const database = new Client({
 database.connect().then(function(){
     console.log('connected to the database successfully...');
 });
+database.end();
 
 //setting up the app also to handle post requests
 const app = express();
