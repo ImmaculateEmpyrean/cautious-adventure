@@ -24,8 +24,10 @@ const database = new Client({
 });
 database.connect().then(function(){
     console.log('connected to the database successfully...');
-});
-database.end();
+}).then(function(){
+    database.end();
+})
+
 
 //setting up the app also to handle post requests
 const app = express();
@@ -53,17 +55,22 @@ app.get("/records",function(req,res){
 //this method is used to post a new record into the database..
 app.post("/records",async function(req,res){
     try{
+        const database = new Client({
+            user:"empyreanbot",
+            password: "ns782110",
+            host: "localhost",
+            port: "5432",
+            database: "budgetapp"
+        });
+        
         await database.connect(); //connect to the database in question
         await database.query('begin'); //start the transaction in question
 
         let result = await database.query(`select * from budgetrecord order by id desc limit 1`);
-        let remBalance = result[0].remainingbalance + req.body.transaction;
+        let remBalance = Number(result.rows[0].remainingbalance) + Number(req.body.transaction);
 
-        await database.query(`insert into\
-                            budgetrecord(instigator,comment,dateandtime,transaction,remainingbalance)\
-                            values(${req.body.instigator},${req.body.comment}\
-                            ,CURRENT_TIMESTAMP,${req.body.transaction},${remBalance})`);
-
+        await database.query(`insert into budgetrecord(instigator,comment,dateandtime,transaction,remainingbalance) values ('${req.body.instigator}','${req.body.comment}',Now(),${req.body.transaction},${remBalance});`);
+        
         await database.query('commit'); //the transaction is finished.. reflect the changes inside the db
     } catch (error) {
         console.log(`error ocurred while communicating with the database ${error}`)

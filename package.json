@@ -11,7 +11,9 @@
 		"back-end:prod": "node ./src/server.js PROD",
 
 		"deploy": "npm run build",
-		"postdeploy": "deploy-automaton.bat"
+		"postdeploy": "deploy-automaton.bat",
+
+		"deploy-lite": "deploy-automaton-lite.bat"
 	},
 	"repository": {
 		"type": "git",
