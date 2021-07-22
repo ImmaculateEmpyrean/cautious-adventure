@@ -2,7 +2,6 @@
 const axios = require('axios').default;
 import onLoad from "./js/onLoad.js";
 
-let FmodalActive = false;
 let FtransactionAmountFieldNormal = true;
 
 let tickIcon = '<span class="icon is-small">\
@@ -47,10 +46,7 @@ onLoad(function(){
 onLoad(function(){
     newButton.addEventListener('click',function(e){
         e.preventDefault();
-        if(FmodalActive === false){
-            FmodalActive = true;
-            newButtonModal.classList.add('is-active');
-        }
+        newButtonModal.classList.add('is-active');
     });
 
     transactionAmountField.addEventListener("focusin",function(){
@@ -96,8 +92,9 @@ onLoad(function(){
                instigator: transactionInitiator,
                comment: transactionComment
             }).then(
-                function(){
+                function(res){
                     console.log("successfully pushed the post request");
+                    newButtonModal.classList.remove('is-active');
                 }
             ).catch(function(error){
                 console.log('error communicating with the server');

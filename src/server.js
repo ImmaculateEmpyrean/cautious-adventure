@@ -75,9 +75,15 @@ app.post("/records",async function(req,res){
     } catch (error) {
         console.log(`error ocurred while communicating with the database ${error}`)
         await database.query('rollback');
+        res.json({
+            success: false
+        })
     }
     finally {
         database.end();
         console.log("closed connection to the database successfully")
+        res.json({
+            success: true
+        })
     }
 })
