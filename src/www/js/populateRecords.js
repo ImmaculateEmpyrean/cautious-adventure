@@ -61,6 +61,12 @@ onLoad(function(){
         e.preventDefault();
         detailedTableEntryModal.classList.remove('is-active');
     })
+
+    let deleteButton = detailedTableEntryModal.querySelector('.delete');
+    deleteButton.addEventListener('click',function(e){
+        e.preventDefault();
+        detailedTableEntryModal.classList.remove('is-active');
+    })
 })
 
 export async function populateRecordTable(){
@@ -127,6 +133,9 @@ export async function populateRecordTable(){
                     }
                 })
                 result = result.data[0];
+
+                let remainingbalanceValue = await axios.get('/getRemainingBalance');
+                remainingbalanceValue = remainingbalanceValue.data.remainingbalance;
                 
                 let formattedDate = date.parse(element.dateandtime,'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')        
                 let formattedDateLine1 = moment(formattedDate).format('dddd  MMMM Do YYYY');
@@ -134,6 +143,36 @@ export async function populateRecordTable(){
 
                 let dateTimeDisplay = detailedTableEntryModal.querySelector('#transaction-date-time-display');
                 dateTimeDisplay.innerHTML = `${formattedDateLine1} <br> ${formattedDateLine2}`;
+
+                let transactionAmountMoneyDisplay = detailedTableEntryModal.querySelector('#transaction-amount-money-display');
+                let transactionAmountDisplay = detailedTableEntryModal.querySelector('#transaction-amount-display');
+
+                if(result.transaction > 0){
+                    transactionAmountMoneyDisplay.classList.remove("positive");
+                    transactionAmountMoneyDisplay.classList.remove("negative");
+
+                    transactionAmountMoneyDisplay.classList.add("positive");
+                    transactionAmountDisplay.innerHTML = `${result.transaction} Credited`;
+                }
+                else{
+                    transactionAmountMoneyDisplay.classList.remove("positive");
+                    transactionAmountMoneyDisplay.classList.remove("negative");
+
+                    transactionAmountMoneyDisplay.classList.add("negative");
+                    transactionAmountDisplay.innerHTML = `${Number(result.transaction) * -1} Debited`;
+                }
+
+                let remainingBalanceAtThatTime = detailedTableEntryModal.querySelector('#remaining-balance-at-that-time');
+                remainingBalanceAtThatTime.innerHTML = result.remainingbalance;
+                
+                let remainingbalanceNow = detailedTableEntryModal.querySelector('#remaining-balance-now');
+                remainingbalanceNow.innerHTML = remainingbalanceValue;
+
+                let messageDisplay = detailedTableEntryModal.querySelector('#message-display');
+                messageDisplay.innerHTML = result.comment;
+
+                let stampDisplay = detailedTableEntryModal.querySelector('#stamp-display');
+                stampDisplay.innerHTML = result.instigator;
 
                 detailedTableEntryModal.classList.add("is-active")
             }

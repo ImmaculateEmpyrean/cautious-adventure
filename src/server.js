@@ -114,6 +114,35 @@ app.get("/getRecord",async function(req,res){
     }
 });
 
+app.get("/getRemainingBalance",async function(req,res){
+    let remainingbalance = 0;
+
+    try{
+        const database = new Client({
+            user:"empyreanbot",
+            password: "ns782110",
+            host: "localhost",
+            port: "5432",
+            database: "budgetapp"
+        });
+        
+        await database.connect();
+        let result = await database.query(`select * from budgetrecord order by id desc limit 1`);
+        remainingbalance = result.rows[0].remainingbalance;
+    }
+    catch(error){
+        console.log("trying to get the number of records");
+        console.log(error);
+    }
+    finally{
+        database.end();
+    }
+
+    res.json({
+        remainingbalance: remainingbalance
+    })
+})
+
 app.get("/getNumberOfRecords",async function(req,res){
     let result =0;
 
