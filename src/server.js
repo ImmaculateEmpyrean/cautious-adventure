@@ -84,7 +84,36 @@ app.get("/records",async function(req,res){
     finally{
         database.end();
     }
-})
+});
+
+app.get("/getNumberOfRecords",async function(req,res){
+    let result =0;
+
+    try{
+        const database = new Client({
+            user:"empyreanbot",
+            password: "ns782110",
+            host: "localhost",
+            port: "5432",
+            database: "budgetapp"
+        });
+        
+        await database.connect();
+        result = await database.query(`select * from budgetrecord order by id desc limit 1`);
+        result = result.rows[0].id;
+    }
+    catch(error){
+        console.log("trying to get the number of records");
+        console.log(error);
+    }
+    finally{
+        database.end();
+    }
+
+    res.json({
+        numberOfRecords: result
+    });
+});
 
 //this method is used to post a new record into the database..
 app.post("/records",async function(req,res){

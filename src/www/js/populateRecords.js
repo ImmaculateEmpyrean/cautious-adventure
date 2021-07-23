@@ -1,3 +1,4 @@
+import { startDate,endDate,transactionType,instigator,rowsPerPage,pageNumber } from "./filterVariables.js";
 import onLoad from "./onLoad.js";
 import date from 'date-and-time';
 import moment from 'moment';
@@ -7,24 +8,29 @@ const axios = require('axios').default;
 let recordTable = null;
 let recordTableRows = null;
 
+let recordTablePagination = null; 
+let recordTablePaginationList = null;
+
 onLoad(function(){
     recordTable = document.getElementById('record-table');
     recordTableRows = document.getElementById('table-rows');
+
+    recordTablePagination = document.getElementById('record-table-pagination');
+    recordTablePaginationList = document.getElementById('record-table-pagination-list');
 })
 
 export async function populateRecordTable(){
     recordTableRows.innerHTML = "";
     let result = await axios.get('/records',{
         params: {
-            startDate: '2012-05-25 00:00:00',
-            endDate: '2021-07-25 23:59:59',
-            transactionType: "Credit",
-            instigator: "Veeru",
-            rowsPerPage: "10",
-            pageNumber: 1
+            startDate: startDate,
+            endDate: endDate,
+            transactionType: transactionType,
+            instigator: instigator,
+            rowsPerPage: rowsPerPage,
+            pageNumber: pageNumber 
         }
     })
-    console.log(result.data);
 
     result.data.forEach(element => {
         let moneyDisplayStyling = null;
@@ -39,9 +45,7 @@ export async function populateRecordTable(){
             transactionText = 'debited'
         } 
 
-        console.log(element.dateandtime);        
-        let formattedDate = date.parse(element.dateandtime,'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')
-        console.log(formattedDate);
+        let formattedDate = date.parse(element.dateandtime,'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')        
         formattedDate = moment(formattedDate).format('dddd  Do MMMM YYYY  hh:mm A');        
 
         let newRow = recordTable.insertRow();
@@ -69,8 +73,28 @@ export async function populateRecordTable(){
                                     </span>`;
     });
 }
-export function populatePagination(){
+export async function populatePagination(){
+    recordTablePaginationList.innerHTML = "";
+    let result = await axios.get("/getNumberOfRecords");
+    result = result.data;
+    console.log(result);
 
+    let numberOfPages = Math.ceil(Number(result.numberOfRecords) / Number(rowsPerPage));    
+    console.log(numberOfPages);
+
+    if(numberOfPages > 1) {
+        for(let i = 1; i< numberOfPages; i++){
+            console.log(i);
+            recordTablePaginationList.innerHTML += `<li><a class="pagination-link">${i}</a></li>`;
+            if(i == 1)recordTablePaginationList.innerHTML += '<li><span class="pagination-ellipsis">&hellip;</span></li>';  
+        }
+        if(numberOfPages > 2)
+            recordTablePaginationList.innerHTML += '<li><span class="pagination-ellipsis">&hellip;</span></li>';  
+        recordTablePaginationList.innerHTML += `<li><a class="pagination-link">${numberOfPages}</a></li>`;
+    }
+    else{
+        recordTablePaginationList.innerHTML = `<li><a class="pagination-link">1</a></li>`;
+    }
 }
 
 export function manageRecordDisplay(){
