@@ -10,6 +10,9 @@ let recordTableRows = null;
 
 let recordTablePagination = null; 
 let recordTablePaginationList = null;
+let recordTablePaginationPreviousPage = null;
+let recordTablePaginationNextPage = null;
+
 
 onLoad(function(){
     recordTable = document.getElementById('record-table');
@@ -17,6 +20,32 @@ onLoad(function(){
 
     recordTablePagination = document.getElementById('record-table-pagination');
     recordTablePaginationList = document.getElementById('record-table-pagination-list');
+    recordTablePaginationPreviousPage = document.getElementById('record-table-pagination-previous-page');
+    recordTablePaginationNextPage = document.getElementById('record-table-pagination-next-page');
+})
+
+onLoad(function(){
+    recordTablePaginationPreviousPage.addEventListener('click',function(e){
+        e.preventDefault();
+        if(pageNumber > 1){
+            pageNumber = pageNumber - 1;
+            renderRecords();
+        }
+    });
+
+    recordTablePaginationNextPage.addEventListener('click',async function(e){
+        e.preventDefault();
+        
+        let result = await axios.get("/getNumberOfRecords");
+        result = result.data;
+        
+        let numberOfPages = Math.ceil(Number(result.numberOfRecords) / Number(rowsPerPage)); 
+
+        if(pageNumber < numberOfPages){
+            pageNumber = pageNumber + 1;
+            renderRecords();
+        }
+    })
 })
 
 export async function populateRecordTable(){
@@ -31,8 +60,6 @@ export async function populateRecordTable(){
             pageNumber: pageNumber 
         }
     })
-
-    console.log(result.data);
 
     result.data.forEach(element => {
         let moneyDisplayStyling = null;
@@ -76,7 +103,6 @@ export async function populateRecordTable(){
                                     </span>`;
         
         newRow.addEventListener('click',function(){
-
             if(this.classList.contains('is-selected')){
                 //display detailed modal about the transaction in question..
 
