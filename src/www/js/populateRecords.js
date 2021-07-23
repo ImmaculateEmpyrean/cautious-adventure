@@ -50,6 +50,7 @@ export async function populateRecordTable(){
 
         let newRow = recordTable.insertRow();
         newRow.classList.add("table-row");
+        newRow.classList.add("is-clickable");
 
         let idCell = newRow.insertCell();
         idCell.innerHTML = element.id;
@@ -71,6 +72,23 @@ export async function populateRecordTable(){
                                         <span class="iconify" data-inline="false" data-icon="teenyicons:rupee-solid"></span> 
                                         ${element.remainingbalance}/- 
                                     </span>`;
+        
+        newRow.addEventListener('click',function(){
+            let rowNodes = recordTable.querySelectorAll('.is-selected');
+            console.log(rowNodes)
+            rowNodes.forEach(function(rowNode){
+                rowNode.classList.remove('is-selected');
+
+                let moneyDisplayText = rowNode.querySelector('.money-display.placeholderPositive');
+                moneyDisplayText.classList.remove('placeholderPositive');
+                moneyDisplayText.classList.add('positive');
+            });
+            
+            this.classList.add('is-selected');
+            let moneyDisplayText = this.querySelector('.money-display.positive');
+            moneyDisplayText.classList.remove('positive');
+            moneyDisplayText.classList.add('placeholderPositive');
+        })
     });
 }
 export async function populatePagination(){
@@ -80,21 +98,38 @@ export async function populatePagination(){
     console.log(result);
 
     let numberOfPages = Math.ceil(Number(result.numberOfRecords) / Number(rowsPerPage));    
-    console.log(numberOfPages);
+   
+    let startPage = pageNumber;
+    let endPage = numberOfPages;
+    let midPage = Math.floor((pageNumber + numberOfPages)/2);
+    let midPageAnterior = midPage -1;
+    let midPageSuperior = midPage+1;
 
-    if(numberOfPages > 1) {
-        for(let i = 1; i< numberOfPages; i++){
-            console.log(i);
-            recordTablePaginationList.innerHTML += `<li><a class="pagination-link">${i}</a></li>`;
-            if(i == 1)recordTablePaginationList.innerHTML += '<li><span class="pagination-ellipsis">&hellip;</span></li>';  
-        }
-        if(numberOfPages > 2)
-            recordTablePaginationList.innerHTML += '<li><span class="pagination-ellipsis">&hellip;</span></li>';  
-        recordTablePaginationList.innerHTML += `<li><a class="pagination-link">${numberOfPages}</a></li>`;
-    }
-    else{
-        recordTablePaginationList.innerHTML = `<li><a class="pagination-link">1</a></li>`;
-    }
+    let startNode = document.createElement('li');
+    startNode.innerHTML = `<a class="pagination-link">${startPage}</a>`
+    recordTablePaginationList.append(startNode);
+
+    recordTablePaginationList.innerHTML += '<li><span class="pagination-ellipsis">&hellip;</span></li>';  
+
+    if(midPageAnterior < startPage) midPageAnterior = startPage
+    let midPageAnteriorNode = document.createElement('li');
+    midPageAnteriorNode.innerHTML = `<a class="pagination-link">${midPageAnterior}</a>`
+    recordTablePaginationList.append(midPageAnteriorNode);
+
+    let midPageNode = document.createElement('li');
+    midPageNode.innerHTML = `<a class="pagination-link">${midPage}</a>`
+    recordTablePaginationList.append(midPageNode);
+
+    if(midPageSuperior > endPage) midPageSuperior = endPage
+    let midPageSuperiorNode = document.createElement('li');
+    midPageSuperiorNode.innerHTML = `<a class="pagination-link">${midPageSuperior}</a>`
+    recordTablePaginationList.append(midPageSuperiorNode);
+
+    recordTablePaginationList.innerHTML += '<li><span class="pagination-ellipsis">&hellip;</span></li>';  
+
+    let endPageNode = document.createElement('li');
+    endPageNode.innerHTML = `<a class="pagination-link">${endPage}</a>`
+    recordTablePaginationList.append(endPageNode);
 }
 
 export function manageRecordDisplay(){
