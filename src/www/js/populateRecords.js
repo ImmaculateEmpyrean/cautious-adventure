@@ -164,7 +164,7 @@ export async function populatePagination(){
     recordTablePaginationList.append(prevPageNode);
 
     let currentPageNode = document.createElement('li');
-    currentPageNode.innerHTML = `<a class="pagination-link is-current">1</a>`
+    currentPageNode.innerHTML = `<a class="pagination-link is-current">${currentPage}</a>`
     recordTablePaginationList.append(currentPageNode);
 
     if(nextPage>finalPage) {
