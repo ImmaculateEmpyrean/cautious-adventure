@@ -88,6 +88,32 @@ app.get("/records",async function(req,res){
     }
 });
 
+
+app.get("/getRecord",async function(req,res){
+    const database = new Client({
+        user:"empyreanbot",
+        password: "ns782110",
+        host: "localhost",
+        port: "5432",
+        database: "budgetapp"
+    });
+
+    try{
+        await database.connect(); //connect to the database in question
+        let result = await database.query(`select * from budgetrecord\
+                                           where id=${req.query.id}
+                                           limit 1                                        
+                                           `);
+        res.json(result.rows);
+    }
+    catch (error){
+        console.log(error);
+    }
+    finally{
+        database.end();
+    }
+});
+
 app.get("/getNumberOfRecords",async function(req,res){
     let result =0;
 

@@ -13,6 +13,8 @@ let recordTablePaginationList = null;
 let recordTablePaginationPreviousPage = null;
 let recordTablePaginationNextPage = null;
 
+let detailedTableEntryModal = null;
+
 
 onLoad(function(){
     recordTable = document.getElementById('record-table');
@@ -22,6 +24,8 @@ onLoad(function(){
     recordTablePaginationList = document.getElementById('record-table-pagination-list');
     recordTablePaginationPreviousPage = document.getElementById('record-table-pagination-previous-page');
     recordTablePaginationNextPage = document.getElementById('record-table-pagination-next-page');
+
+    detailedTableEntryModal = document.getElementById('detailed-table-entry-modal');
 })
 
 onLoad(function(){
@@ -45,6 +49,17 @@ onLoad(function(){
             pageNumber = pageNumber + 1;
             renderRecords();
         }
+    })
+})
+
+onLoad(function(){
+    //hide the detailed table entry modal If I press the okay button on it
+    //console.log(detailedTableEntryModal);
+    let okButton = detailedTableEntryModal.querySelector('#close-modal');
+    console.log(okButton);
+    okButton.addEventListener('click',function(e){
+        e.preventDefault();
+        detailedTableEntryModal.classList.remove('is-active');
     })
 })
 
@@ -80,6 +95,7 @@ export async function populateRecordTable(){
         let newRow = recordTableRows.insertRow();
         newRow.classList.add("table-row");
         newRow.classList.add("is-clickable");
+        newRow.dataset.id = element.id;
 
         let idCell = newRow.insertCell();
         idCell.innerHTML = element.id;
@@ -102,10 +118,24 @@ export async function populateRecordTable(){
                                         ${element.remainingbalance}/- 
                                     </span>`;
         
-        newRow.addEventListener('click',function(){
+        newRow.addEventListener('click',async function(e){
             if(this.classList.contains('is-selected')){
                 //display detailed modal about the transaction in question..
+                let result = await axios.get('/getRecord',{
+                    params:{
+                        id: this.dataset.id
+                    }
+                })
+                result = result.data[0];
+                
+                let formattedDate = date.parse(element.dateandtime,'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')        
+                let formattedDateLine1 = moment(formattedDate).format('dddd  MMMM Do YYYY');
+                let formattedDateLine2 = moment(formattedDate).format('hh:mm A');
 
+                let dateTimeDisplay = detailedTableEntryModal.querySelector('#transaction-date-time-display');
+                dateTimeDisplay.innerHTML = `${formattedDateLine1} <br> ${formattedDateLine2}`;
+
+                detailedTableEntryModal.classList.add("is-active")
             }
             else{
                 let rowNodes = recordTable.querySelectorAll('.is-selected');
