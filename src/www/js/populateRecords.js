@@ -44,23 +44,29 @@ export async function populateRecordTable(){
         console.log(formattedDate);
         formattedDate = moment(formattedDate).format('dddd  Do MMMM YYYY  hh:mm A');        
 
-        let tableRow = `<tr id="table-row">
-                            <td>${element.id}</td>
-                            <td class="has-text-centered">
-                                <span class="money-display ${moneyDisplayStyling}">
-                                    <span class="iconify" data-inline="false" data-icon="teenyicons:rupee-solid"></span>
-                                    ${transactionAmount} ${transactionText}
-                                </span>
-                            </td>
-                            <td class="has-text-centered">${formattedDate}</td>
-                            <td class="has-text-right">
-                                <span class="money-display">
-                                    <span class="iconify" data-inline="false" data-icon="teenyicons:rupee-solid"></span> 
-                                    ${element.remainingbalance}/- 
-                                </span>
-                            </td>
-                        </tr>`
-        recordTableRows.innerHTML = recordTableRows.innerHTML + tableRow;
+        let newRow = recordTable.insertRow();
+        newRow.classList.add("table-row");
+
+        let idCell = newRow.insertCell();
+        idCell.innerHTML = element.id;
+
+        let transactionCell = newRow.insertCell();
+        transactionCell.classList.add('has-text-centered')
+        transactionCell.innerHTML = `<span class="money-display ${moneyDisplayStyling}">\
+                                        <span class="iconify" data-inline="false" data-icon="teenyicons:rupee-solid"></span>
+                                        ${transactionAmount} ${transactionText}
+                                    </span>`;
+        
+        let dateCell = newRow.insertCell();
+        dateCell.classList.add('has-text-centered')
+        dateCell.innerHTML = formattedDate;
+
+        let remBalanceCell = newRow.insertCell();
+        remBalanceCell.classList.add('has-text-right');
+        remBalanceCell.innerHTML = `<span class="money-display">
+                                        <span class="iconify" data-inline="false" data-icon="teenyicons:rupee-solid"></span> 
+                                        ${element.remainingbalance}/- 
+                                    </span>`;
     });
 }
 export function populatePagination(){
