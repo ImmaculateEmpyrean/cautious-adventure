@@ -265,7 +265,17 @@ export async function populatePagination(){
     recordTablePaginationList.append(finalPageNode);
 }
 
+export async function updateRemainingBalance(){
+    let remainingbalanceValue = await axios.get('/getRemainingBalance');
+    remainingbalanceValue = remainingbalanceValue.data.remainingbalance;
+
+    let balanceAmountDisplay = document.getElementById('balance-amount-display');
+    balanceAmountDisplay.innerHTML = remainingbalanceValue;
+}
+
+
 export function renderRecords(){
     populateRecordTable();
     populatePagination();
+    updateRemainingBalance();
 }
