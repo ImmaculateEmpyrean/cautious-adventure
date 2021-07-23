@@ -1,4 +1,7 @@
 import onLoad from "./onLoad.js";
+import date from 'date-and-time';
+import moment from 'moment';
+
 const axios = require('axios').default;
 
 let recordTable = null;
@@ -24,19 +27,36 @@ export async function populateRecordTable(){
     console.log(result.data);
 
     result.data.forEach(element => {
+        let moneyDisplayStyling = null;
+        let transactionAmount = element.transaction;
+        let transactionText = null;
+        if(transactionAmount > 0){
+            moneyDisplayStyling = 'positive'
+            transactionText = 'Credited'
+        } 
+        else{
+            moneyDisplayStyling = 'negative'
+            transactionText = 'debited'
+        } 
+
+        console.log(element.dateandtime);        
+        let formattedDate = date.parse(element.dateandtime,'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')
+        console.log(formattedDate);
+        formattedDate = moment(formattedDate).format('dddd  Do MMMM YYYY  hh:mm A');        
+
         let tableRow = `<tr id="table-row">
                             <td>${element.id}</td>
                             <td class="has-text-centered">
-                                <span class="money-display positive">
+                                <span class="money-display ${moneyDisplayStyling}">
                                     <span class="iconify" data-inline="false" data-icon="teenyicons:rupee-solid"></span>
-                                    500 Credited
+                                    ${transactionAmount} ${transactionText}
                                 </span>
                             </td>
-                            <td class="has-text-centered">19-Jan-2021 5:00 pm</td>
+                            <td class="has-text-centered">${formattedDate}</td>
                             <td class="has-text-right">
                                 <span class="money-display">
                                     <span class="iconify" data-inline="false" data-icon="teenyicons:rupee-solid"></span> 
-                                    4000/- 
+                                    ${element.remainingbalance}/- 
                                 </span>
                             </td>
                         </tr>`
