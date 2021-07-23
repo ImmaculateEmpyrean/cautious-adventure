@@ -53,9 +53,11 @@ app.get("/records",async function(req,res){
 
     let transactionClause = null;
     if(req.query.transactionType === 'Credit')  transactionClause = 'transaction > 0';
-    else transactionClause = 'transaction < 0';
+    else if(req.query.transactionType === 'Debit') transactionClause = 'transaction < 0';
+    else transactionClause = 'transaction < 0 and transaction > 0';
     
-    let offsetBy = (req.query.pageNumber - 1) * req.query.rowsPerPage;
+    let offsetBy = Number(Number(req.query.pageNumber) - 1) * Number(req.query.rowsPerPage);
+    console.log(offsetBy);
 
     const database = new Client({
         user:"empyreanbot",

@@ -32,6 +32,8 @@ export async function populateRecordTable(){
         }
     })
 
+    console.log(result.data);
+
     result.data.forEach(element => {
         let moneyDisplayStyling = null;
         let transactionAmount = element.transaction;
@@ -48,7 +50,7 @@ export async function populateRecordTable(){
         let formattedDate = date.parse(element.dateandtime,'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')        
         formattedDate = moment(formattedDate).format('dddd  Do MMMM YYYY  hh:mm A');        
 
-        let newRow = recordTable.insertRow();
+        let newRow = recordTableRows.insertRow();
         newRow.classList.add("table-row");
         newRow.classList.add("is-clickable");
 
@@ -74,65 +76,101 @@ export async function populateRecordTable(){
                                     </span>`;
         
         newRow.addEventListener('click',function(){
-            let rowNodes = recordTable.querySelectorAll('.is-selected');
-            console.log(rowNodes)
-            rowNodes.forEach(function(rowNode){
-                rowNode.classList.remove('is-selected');
 
-                let moneyDisplayText = rowNode.querySelector('.money-display.placeholderPositive');
-                moneyDisplayText.classList.remove('placeholderPositive');
-                moneyDisplayText.classList.add('positive');
-            });
-            
-            this.classList.add('is-selected');
-            let moneyDisplayText = this.querySelector('.money-display.positive');
-            moneyDisplayText.classList.remove('positive');
-            moneyDisplayText.classList.add('placeholderPositive');
+            if(this.classList.contains('is-selected')){
+                //display detailed modal about the transaction in question..
+
+            }
+            else{
+                let rowNodes = recordTable.querySelectorAll('.is-selected');
+                rowNodes.forEach(function(rowNode){
+                    rowNode.classList.remove('is-selected');
+
+                    let moneyDisplayText = rowNode.querySelector('.money-display.placeholderPositive');
+                    moneyDisplayText.classList.remove('placeholderPositive');
+                    moneyDisplayText.classList.add('positive');
+                });
+                
+                this.classList.add('is-selected');
+                let moneyDisplayText = this.querySelector('.money-display.positive');
+                moneyDisplayText.classList.remove('positive');
+                moneyDisplayText.classList.add('placeholderPositive');
+            }
         })
     });
 }
 export async function populatePagination(){
     recordTablePaginationList.innerHTML = "";
+    
     let result = await axios.get("/getNumberOfRecords");
     result = result.data;
     console.log(result);
 
     let numberOfPages = Math.ceil(Number(result.numberOfRecords) / Number(rowsPerPage));    
    
-    let startPage = pageNumber;
-    let endPage = numberOfPages;
-    let midPage = Math.floor((pageNumber + numberOfPages)/2);
-    let midPageAnterior = midPage -1;
-    let midPageSuperior = midPage+1;
+    let currentPage = Number(pageNumber);
+    let prevPage = currentPage - 1;
+    let nextPage = currentPage + 1;
+    let finalPage = Number(numberOfPages);
 
     let startNode = document.createElement('li');
-    startNode.innerHTML = `<a class="pagination-link">${startPage}</a>`
+    startNode.innerHTML = `<a class="pagination-link">1</a>`
+    startNode.addEventListener('click',function(e){
+        e.preventDefault();
+        pageNumber = 1;
+        renderRecords();
+    })
     recordTablePaginationList.append(startNode);
 
-    recordTablePaginationList.innerHTML += '<li><span class="pagination-ellipsis">&hellip;</span></li>';  
+    let seperator1 = document.createElement('li');
+    seperator1.innerHTML = '<span class="pagination-ellipsis">&hellip;</span>';
+    recordTablePaginationList.append(seperator1);
 
-    if(midPageAnterior < startPage) midPageAnterior = startPage
-    let midPageAnteriorNode = document.createElement('li');
-    midPageAnteriorNode.innerHTML = `<a class="pagination-link">${midPageAnterior}</a>`
-    recordTablePaginationList.append(midPageAnteriorNode);
+    if(prevPage<1) prevPage=1;
+    let prevPageNode = document.createElement('li');
+    prevPageNode.innerHTML = `<a class="pagination-link">${prevPage}</a>`
+    prevPageNode.dataset.pageNumber = prevPage;
+    prevPageNode.addEventListener('click',function(e){
+        e.preventDefault();
+        pageNumber = this.dataset.pageNumber;
+        renderRecords();
+    })
+    recordTablePaginationList.append(prevPageNode);
 
-    let midPageNode = document.createElement('li');
-    midPageNode.innerHTML = `<a class="pagination-link">${midPage}</a>`
-    recordTablePaginationList.append(midPageNode);
+    let currentPageNode = document.createElement('li');
+    currentPageNode.innerHTML = `<a class="pagination-link is-current">1</a>`
+    recordTablePaginationList.append(currentPageNode);
 
-    if(midPageSuperior > endPage) midPageSuperior = endPage
-    let midPageSuperiorNode = document.createElement('li');
-    midPageSuperiorNode.innerHTML = `<a class="pagination-link">${midPageSuperior}</a>`
-    recordTablePaginationList.append(midPageSuperiorNode);
+    if(nextPage>finalPage) {
+        nextPage = finalPage;
+    }
+    let nextPageNode = document.createElement('li');
+    nextPageNode.innerHTML = `<a class="pagination-link">${nextPage}</a>`
+    nextPageNode.dataset.pageNumber = nextPage;
+    nextPageNode.addEventListener('click',function(e){
+        e.preventDefault();
+        console.log('clicked mee')
+        pageNumber = this.dataset.pageNumber;
+        renderRecords();
+    })
+    recordTablePaginationList.append(nextPageNode);
 
-    recordTablePaginationList.innerHTML += '<li><span class="pagination-ellipsis">&hellip;</span></li>';  
+    let seperator2 = document.createElement('li');
+    seperator2.innerHTML = '<span class="pagination-ellipsis">&hellip;</span>';
+    recordTablePaginationList.append(seperator2);
 
-    let endPageNode = document.createElement('li');
-    endPageNode.innerHTML = `<a class="pagination-link">${endPage}</a>`
-    recordTablePaginationList.append(endPageNode);
+    let finalPageNode = document.createElement('li');
+    finalPageNode.innerHTML = `<a class="pagination-link">${finalPage}</a>`
+    finalPageNode.dataset.pageNumber = finalPage;
+    finalPageNode.addEventListener('click',function(e){
+        e.preventDefault();
+        pageNumber = this.dataset.pageNumber;
+        renderRecords();
+    })
+    recordTablePaginationList.append(finalPageNode);
 }
 
-export function manageRecordDisplay(){
+export function renderRecords(){
     populateRecordTable();
     populatePagination();
 }
