@@ -47,9 +47,43 @@ app.get("/",function(req,res){
 })
 
 //this method is used to get the records to be displayed to the user..
-app.get("/records",function(req,res){
+app.get("/records",async function(req,res){
     // req.query has all the key value pairs
+    console.log(req.query);
 
+    let transactionClause = null;
+    if(req.query.transactionType === 'Credit')  transactionClause = 'transaction > 0';
+    else transactionClause = 'transaction < 0';
+    
+    let offsetBy = (req.query.pageNumber - 1) * req.query.rowsPerPage;
+
+    const database = new Client({
+        user:"empyreanbot",
+        password: "ns782110",
+        host: "localhost",
+        port: "5432",
+        database: "budgetapp"
+    });
+
+    try{
+        await database.connect(); //connect to the database in question
+        let result = await database.query(`select * from budgetrecord\
+                                           where ${transactionClause} and\
+                                           instigator='${req.query.instigator}' and\
+                                           dateandtime BETWEEN '${req.query.startDate}' AND '${req.query.endDate}'\
+                                           order by id\
+                                           offset ${offsetBy}\
+                                           limit ${req.query.rowsPerPage}                                        
+                                           `);
+        
+        res.json(result.rows);
+    }
+    catch (error){
+        console.log(error);
+    }
+    finally{
+        database.end();
+    }
 })
 
 //this method is used to post a new record into the database..
