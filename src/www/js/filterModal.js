@@ -26,6 +26,19 @@ onLoad(function(){
 })
 
 onLoad(function(){
+    //setup default filters
+    // startDate = `${e.detail.data.value()} 00:00:00`; //format must be preserved 
+        
+    // let startDateTag = document.getElementById('start-date-tag');
+    // startDateTag.innerHTML = `Start Date : ${e.detail.data.value()}`;
+
+    // endDate = `${e.detail.data.value()} 23:59:59`; //format must be preserved 
+        
+    // let endDateTag = document.getElementById('end-date-tag');
+    // endDateTag.innerHTML = `End Date : ${e.detail.data.value()}`;
+})
+
+onLoad(function(){
     //setup default bindings which are trivial and dont change much
 
     filterButton.addEventListener('click',function(e){

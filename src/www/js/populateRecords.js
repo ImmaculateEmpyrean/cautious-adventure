@@ -95,8 +95,11 @@ export async function populateRecordTable(){
             transactionText = 'debited'
         } 
 
-        let formattedDate = date.parse(element.dateandtime,'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')        
-        formattedDate = moment(formattedDate).format('dddd  Do MMMM YYYY  hh:mm A');        
+        let formattedDate = date.parse(element.dateandtime,'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')
+        formattedDate = moment(formattedDate);
+        formattedDate.add('5','h');
+        formattedDate.add('30','m');                
+        formattedDate = formattedDate.format('dddd  Do MMMM YYYY  hh:mm A');        //moment(formattedDate).format('dddd  Do MMMM YYYY  hh:mm A');        
 
         let newRow = recordTableRows.insertRow();
         newRow.classList.add("table-row");
@@ -137,9 +140,12 @@ export async function populateRecordTable(){
                 let remainingbalanceValue = await axios.get('/getRemainingBalance');
                 remainingbalanceValue = remainingbalanceValue.data.remainingbalance;
                 
-                let formattedDate = date.parse(element.dateandtime,'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')        
-                let formattedDateLine1 = moment(formattedDate).format('dddd  MMMM Do YYYY');
-                let formattedDateLine2 = moment(formattedDate).format('hh:mm A');
+                let formattedDate = date.parse(element.dateandtime,'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')
+                formattedDate = moment(formattedDate);
+                formattedDate.add('5','h');
+                formattedDate.add('30','m');        
+                let formattedDateLine1 = formattedDate.format('dddd  MMMM Do YYYY');//moment(formattedDate).format('dddd  MMMM Do YYYY');
+                let formattedDateLine2 = formattedDate.format('hh:mm A'); //moment(formattedDate).format('hh:mm A');
 
                 let dateTimeDisplay = detailedTableEntryModal.querySelector('#transaction-date-time-display');
                 dateTimeDisplay.innerHTML = `${formattedDateLine1} <br> ${formattedDateLine2}`;
