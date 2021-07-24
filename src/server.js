@@ -58,14 +58,14 @@ app.get("/records",async function(req,res){
         transactionClause = 'transaction < 0';
     } 
     else{
-        transactionClause = 'transaction < 0 or transaction > 0';
+        transactionClause = '(transaction < 0 or transaction > 0)';
     } 
 
     let instigatorClause = null;
     if(req.query.instigator === 'Veeru')  instigatorClause = "instigator='Veeru'";
     else if(req.query.instigator === 'Srivee') instigatorClause = "instigator='Srivee'";
     else if(req.query.instigator === 'Nanna') instigatorClause = "instigator='Nanna'";
-    else instigatorClause = instigatorClause = "instigator='Veeru' or instigator='Srivee' or instigator='Nanna'";
+    else instigatorClause = instigatorClause = "(instigator='Veeru' or instigator='Srivee' or instigator='Nanna')";
     
     let offsetBy = Number(Number(req.query.pageNumber) - 1) * Number(req.query.rowsPerPage);
     
@@ -83,12 +83,11 @@ app.get("/records",async function(req,res){
         let result = await database.query(`select * from budgetrecord\
                                            where ${transactionClause} and\
                                            ${instigatorClause} and\
-                                           dateandtime BETWEEN '${req.query.startDate}' AND '${req.query.endDate}'\
+                                           (DATE(dateandtime) >= '${req.query.startDate}' AND  DATE(dateandtime) <= '${req.query.endDate}')\
                                            order by id\
                                            offset ${offsetBy}\
                                            limit ${req.query.rowsPerPage}                                        
                                            `);
-        
         res.json(result.rows);
     }
     catch (error){
@@ -159,13 +158,13 @@ app.get("/getNumberOfRecords",async function(req,res){
     let transactionClause = null;
     if(req.query.transactionType === 'Credit')  transactionClause = 'transaction > 0';
     else if(req.query.transactionType === 'Debit') transactionClause = 'transaction < 0';
-    else transactionClause = 'transaction < 0 or transaction > 0';
+    else transactionClause = '(transaction < 0 or transaction > 0)';
 
     let instigatorClause = null;
     if(req.query.instigator === 'Veeru')  instigatorClause = "instigator='Veeru'";
     else if(req.query.instigator === 'Srivee') instigatorClause = "instigator='Srivee'";
     else if(req.query.instigator === 'Nanna') instigatorClause = "instigator='Nanna'";
-    else transactionClause = instigatorClause = "instigator='Veeru' or instigator='Srivee' or instigator='Nanna'";
+    else instigatorClause = instigatorClause = "(instigator='Veeru' or instigator='Srivee' or instigator='Nanna')";
 
     try{
         const database = new Client({
@@ -180,7 +179,7 @@ app.get("/getNumberOfRecords",async function(req,res){
         result = await database.query(`select count(id) from budgetrecord\
                                         where ${transactionClause} and\
                                         ${instigatorClause} and\
-                                        dateandtime BETWEEN '${req.query.startDate}' AND '${req.query.endDate}'\                                    
+                                        (DATE(dateandtime) >= '${req.query.startDate}' AND  DATE(dateandtime) <= '${req.query.endDate}')\
                                         `);
         result = result.rows[0].count;
     }
