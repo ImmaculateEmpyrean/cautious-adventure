@@ -1,6 +1,7 @@
 //import { axios } from "axios/dist/axios";
 const axios = require('axios').default;
 import onLoad from "./onLoad.js";
+import {renderRecords} from './populateRecords.js';
 
 let FtransactionAmountFieldNormal = true;
 
@@ -62,11 +63,13 @@ onLoad(function(){
         }
     })
 
-    creditButton.addEventListener('click',function(e){
-        postNewTransaction(e,true);
+    creditButton.addEventListener('click',async function(e){
+        await postNewTransaction(e,true);
+        renderRecords();
     });
-    debitButton.addEventListener('click',function(e){
-        postNewTransaction(e,false);
+    debitButton.addEventListener('click',async function(e){
+        await postNewTransaction(e,false);
+        renderRecords();
     });
     closeButton.addEventListener('click',function(e){
         e.preventDefault();
@@ -74,7 +77,7 @@ onLoad(function(){
         FmodalActive = false;
     });
 })
-function postNewTransaction(e,credit = true){
+async function postNewTransaction(e,credit = true){
     let FallValid = true; //this flag teels me if all the fields are valid or not
         e.preventDefault(); //what is the default?
         
@@ -100,19 +103,20 @@ function postNewTransaction(e,credit = true){
 
         if(FallValid === true){
             //start posting to the database at this point..
-            axios.post('/records', {
-               transaction: transactionAmount,
-               instigator: transactionInitiator,
-               comment: transactionComment
-            }).then(
-                function(res){
-                    console.log("successfully pushed the post request");
-                    newButtonModal.classList.remove('is-active');
-                }
-            ).catch(function(error){
+            try{
+                let result = await axios.post('/records', {
+                    transaction: transactionAmount,
+                    instigator: transactionInitiator,
+                    comment: transactionComment
+                 });
+            }
+            catch(error){
                 console.log('error communicating with the server');
                 console.log(error);
-            })
+            }
+
+             console.log("successfully pushed the post request");
+             newButtonModal.classList.remove('is-active');
         }
 }
 
