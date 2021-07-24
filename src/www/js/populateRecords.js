@@ -197,7 +197,16 @@ export async function populateRecordTable(){
 export async function populatePagination(){
     recordTablePaginationList.innerHTML = "";
     
-    let result = await axios.get("/getNumberOfRecords");
+    let result = await axios.get("/getNumberOfRecords",{
+        params: {
+            startDate: startDate,
+            endDate: endDate,
+            transactionType: transactionType,
+            instigator: instigator,
+            rowsPerPage: rowsPerPage,
+            pageNumber: pageNumber 
+        }
+    });
     result = result.data;
     console.log(result);
 
