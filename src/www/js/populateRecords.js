@@ -197,14 +197,29 @@ export async function populateRecordTable(){
                     rowNode.classList.remove('is-selected');
 
                     let moneyDisplayText = rowNode.querySelector('.money-display.placeholderPositive');
-                    moneyDisplayText.classList.remove('placeholderPositive');
-                    moneyDisplayText.classList.add('positive');
+                    if(moneyDisplayText != null){
+                        moneyDisplayText.classList.remove('placeholderPositive');
+                        moneyDisplayText.classList.add('positive');
+                    }
+                    else{
+                        moneyDisplayText = rowNode.querySelector('.money-display.placeholderNegative');
+                        moneyDisplayText.classList.remove('placeholderNegative');
+                        moneyDisplayText.classList.add('negative');
+                    }
+                    
                 });
                 
                 this.classList.add('is-selected');
                 let moneyDisplayText = this.querySelector('.money-display.positive');
-                moneyDisplayText.classList.remove('positive');
-                moneyDisplayText.classList.add('placeholderPositive');
+                if(moneyDisplayText != null){
+                    moneyDisplayText.classList.remove('positive');
+                    moneyDisplayText.classList.add('placeholderPositive');
+                }
+                else {
+                    let moneyDisplayText = this.querySelector('.money-display.negative');
+                    moneyDisplayText.classList.remove('negative');
+                    moneyDisplayText.classList.add('placeholderNegative');
+                }
             }
         })
     });
