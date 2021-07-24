@@ -40,7 +40,16 @@ onLoad(function(){
     recordTablePaginationNextPage.addEventListener('click',async function(e){
         e.preventDefault();
         
-        let result = await axios.get("/getNumberOfRecords");
+        let result = await axios.get("/getNumberOfRecords",{
+            params: {
+                startDate: startDate,
+                endDate: endDate,
+                transactionType: transactionType,
+                instigator: instigator,
+                rowsPerPage: rowsPerPage,
+                pageNumber: pageNumber
+            }
+        });
         result = result.data;
         
         let numberOfPages = Math.ceil(Number(result.numberOfRecords) / Number(rowsPerPage)); 
