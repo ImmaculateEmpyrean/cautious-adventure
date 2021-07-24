@@ -54,7 +54,13 @@ app.get("/records",async function(req,res){
     let transactionClause = null;
     if(req.query.transactionType === 'Credit')  transactionClause = 'transaction > 0';
     else if(req.query.transactionType === 'Debit') transactionClause = 'transaction < 0';
-    else transactionClause = 'transaction < 0 and transaction > 0';
+    else transactionClause = 'transaction < 0 or transaction > 0';
+
+    let instigatorClause = null;
+    if(req.query.instigator === 'Veeru')  instigatorClause = "instigator='Veeru'";
+    else if(req.query.instigator === 'Srivee') instigatorClause = "instigator='Srivee'";
+    else if(req.query.instigator === 'Nanna') instigatorClause = "instigator='Nanna'";
+    else transactionClause = instigatorClause = "instigator='Veeru' or instigator='Srivee' or instigator='Nanna'";
     
     let offsetBy = Number(Number(req.query.pageNumber) - 1) * Number(req.query.rowsPerPage);
     console.log(offsetBy);
@@ -71,7 +77,7 @@ app.get("/records",async function(req,res){
         await database.connect(); //connect to the database in question
         let result = await database.query(`select * from budgetrecord\
                                            where ${transactionClause} and\
-                                           instigator='${req.query.instigator}' and\
+                                           ${instigatorClause} and\
                                            dateandtime BETWEEN '${req.query.startDate}' AND '${req.query.endDate}'\
                                            order by id\
                                            offset ${offsetBy}\

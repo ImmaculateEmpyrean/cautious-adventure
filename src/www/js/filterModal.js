@@ -69,23 +69,55 @@ onLoad(function(){
         console.log(e.target.value);
         let transactionTypeTag = document.getElementById('transaction-type-tag');
         if(e.target.value === "Credit"){
+            transactionTypeTag.classList.remove("is-hidden");
             transactionTypeTag.classList.remove("is-danger")
             transactionTypeTag.classList.remove("is-black")
 
             transactionTypeTag.classList.add("is-success");
 
             transactionTypeTag.innerHTML = `Credit`;
+
+            transactionType = 'Credit';
         }
         else if(e.target.value === "Debit"){
+            transactionTypeTag.classList.remove("is-hidden");
             transactionTypeTag.classList.remove("is-success")
             transactionTypeTag.classList.remove("is-black")
 
             transactionTypeTag.classList.add("is-danger");
 
             transactionTypeTag.innerHTML = `Debit`;
+
+            transactionType = 'Debit';
         }
         else{ 
             transactionTypeTag.classList.add("is-hidden");
+            transactionType = 'All';
         }
     })
+
+    let transactionInstigatorFilterTag = document.getElementById('transaction-instigator-tag');
+    let transactionInstigatorFilter = document.getElementById('transaction-instigator-filter');
+    transactionInstigatorFilter.addEventListener('input',function(e){
+        let value = e.target.value;
+        if(value === "None"){
+            transactionInstigatorFilterTag.classList.add('is-hidden');
+            instigator="any";
+        } else{
+            transactionInstigatorFilterTag.classList.remove("is-hidden");
+            transactionInstigatorFilterTag.innerHTML = value;
+
+            instigator = value;
+        }
+    })
+
+    let numberOfRowsPerPageTag = document.getElementById('number-of-rows-filter-tag');
+    let numberOfRowsPerPageInput = document.getElementById('number-of-rows-filter');
+    numberOfRowsPerPageInput.addEventListener('input',function(e){
+        let value = e.target.value;
+        rowsPerPage = value;
+
+        numberOfRowsPerPageTag.innerHTML = value;
+    })
+
 })

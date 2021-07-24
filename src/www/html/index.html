@@ -37,6 +37,8 @@
 								<span class="tag is-medium is-light" id="start-date-tag">Dark</span>
 								<span class="tag is-medium is-dark " id="end-date-tag">Dark</span>
 								<span class="tag is-medium " id="transaction-type-tag"></span>
+								<span class="tag is-medium is-link" id="transaction-instigator-tag"></span>
+								<span class="tag is-medium is-warning" id="number-of-rows-filter-tag"></span>
 							</span>
 						</div>
 					</div>
@@ -238,7 +240,7 @@
 						<div class="label">
 							Filter on (veeru | nanna | srivee | all)
 						</div>
-						<div class="control">
+						<div class="control" id="transaction-instigator-filter">
 							<span class="select">
 							  <select class="select">
 								<option value="none" selected disabled hidden>
@@ -259,7 +261,7 @@
 							Number Of Rows Per Page - 
 						</div>
 						<div class="control">
-							<input type="number" class="input" value="3">
+							<input type="number" class="input" value="3" id="number-of-rows-filter">
 						</div>
 					</div>
 					<!-- ended displaying rows per page tag -->
