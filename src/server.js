@@ -51,15 +51,21 @@ app.get("/records",async function(req,res){
     // req.query has all the key value pairs
 
     let transactionClause = null;
-    if(req.query.transactionType === 'Credit')  transactionClause = 'transaction > 0';
-    else if(req.query.transactionType === 'Debit') transactionClause = 'transaction < 0';
-    else transactionClause = 'transaction < 0 or transaction > 0';
+    if(req.query.transactionType === 'Credit'){
+        transactionClause = 'transaction > 0';
+    }  
+    else if(req.query.transactionType === 'Debit'){
+        transactionClause = 'transaction < 0';
+    } 
+    else{
+        transactionClause = 'transaction < 0 or transaction > 0';
+    } 
 
     let instigatorClause = null;
     if(req.query.instigator === 'Veeru')  instigatorClause = "instigator='Veeru'";
     else if(req.query.instigator === 'Srivee') instigatorClause = "instigator='Srivee'";
     else if(req.query.instigator === 'Nanna') instigatorClause = "instigator='Nanna'";
-    else transactionClause = instigatorClause = "instigator='Veeru' or instigator='Srivee' or instigator='Nanna'";
+    else instigatorClause = instigatorClause = "instigator='Veeru' or instigator='Srivee' or instigator='Nanna'";
     
     let offsetBy = Number(Number(req.query.pageNumber) - 1) * Number(req.query.rowsPerPage);
     
