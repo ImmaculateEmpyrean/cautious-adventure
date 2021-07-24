@@ -13,4 +13,21 @@ document.addEventListener('DOMContentLoaded',function(){
         displayMode: "dialog",
         dateFormat: "dd/MM/yyyy"
     });
+
+    let filterStartDate = document.getElementById('filter-start-date');
+    let filterEndDate = document.getElementById('filter-end-date');
+    
+    filterStartDate.bulmaCalendar.on('select', function(datepicker) {
+        console.log('filter-start-date changed');
+        
+        let event = new CustomEvent("start-dateChange", { detail:datepicker });
+        document.dispatchEvent(event);
+    });
+
+    filterEndDate.bulmaCalendar.on('select', function(datepicker) {
+        console.log('filter-end date changed')
+
+        let event = new CustomEvent("end-dateChange", { detail:datepicker });
+        document.dispatchEvent(event);
+    });
 });

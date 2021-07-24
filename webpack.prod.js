@@ -21,7 +21,7 @@ module.exports = merge(common, {
 		new HtmlWebpackPlugin({
 			filename: "index.html",
 			template: "./src/www/html/index.html",
-			chunks: ["vendor", "index"],
+			chunks: ["index", "vendor"],
 			minify: {
 				removeAttributeQuotes: true,
 				collapseWhitespace: true,

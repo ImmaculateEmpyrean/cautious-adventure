@@ -33,18 +33,10 @@
 					<!-- start displaying column-2 with shows filter tags applied -->
 					<div class="column">
 						<div class="block">
-							Filters :
 							<span id="filter-tags-display">
-								<span class="tag is-dark">Dark</span>
-								<span class="tag is-dark">Dark</span>
-								<span class="tag is-dark">Dark</span>
-								<span class="tag is-dark">Dark</span>
-								<span class="tag is-dark">Dark</span>
-								<span class="tag is-dark">Dark</span>
-								<span class="tag is-dark">Dark</span>
-								<span class="tag is-dark">Dark</span>
-								<span class="tag is-dark">Dark</span>
-								<span class="tag is-dark">Dark</span>
+								<span class="tag is-medium is-light" id="start-date-tag">Dark</span>
+								<span class="tag is-medium is-dark " id="end-date-tag">Dark</span>
+								<span class="tag is-medium " id="transaction-type-tag"></span>
 							</span>
 						</div>
 					</div>
@@ -209,7 +201,7 @@
 								<div class="label">
 									Start Date - 
 								</div>
-								<input type="date">
+								<input type="date" value="2013-01-08" id="filter-start-date">
 							</div>
 						</div>	
 						<div class="column">
@@ -217,7 +209,7 @@
 								<div class="label">
 									End Date -
 								</div>
-								<input type="date">
+								<input type="date" value="2022-01-08" id="filter-end-date">
 							</div>
 						</div>
 					</div>
@@ -229,7 +221,7 @@
 						</div>
 						<div class="control">
 							<span class="select">
-							  <select class="select">
+							  <select class="select" id="transaction-type-filter">
 								<option value="none" selected disabled hidden>
 									-- Filter On --
 								</option>
@@ -273,7 +265,7 @@
 					<!-- ended displaying rows per page tag -->
 				  </section>
 				  <footer class="modal-card-foot">
-					<button class="button is-link">OK</button>
+					<button class="button is-link" id="filter-modal-ok-button">OK</button>
 					<!-- <button class="button is-danger">Cancel Changes</button> -->
 				  </footer>
 				</div>

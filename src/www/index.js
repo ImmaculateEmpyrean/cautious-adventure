@@ -1,8 +1,8 @@
-import "./js/newButton.js";
-import {populatePagination, populateRecordTable} from "./js/populateRecords.js";
 import onLoad from "./js/onLoad.js";
+import "./js/newButton.js";
+import "./js/filterModal.js";
+import {populatePagination, populateRecordTable, renderRecords} from "./js/populateRecords.js";
 
 onLoad(function(){
-    populateRecordTable();
-    populatePagination()
+    renderRecords();
 })
