@@ -1,5 +1,6 @@
 import { startDate,endDate,transactionType,instigator,rowsPerPage,pageNumber } from "./filterVariables.js";
 import onLoad from "./onLoad.js";
+import { renderRecords } from "./populateRecords.js";
 
 onLoad(function(){
     //constructor to setup default values for the filter variables..
@@ -35,14 +36,21 @@ onLoad(function(){
     let deleteButton = filterModal.querySelector('.delete');
     deleteButton.addEventListener('click',function(e){
         e.preventDefault();
+        renderRecords();
         filterModal.classList.remove('is-active');
     });
 
     let okButton = filterModal.querySelector('#filter-modal-ok-button');
     okButton.addEventListener('click',function(e){
         e.preventDefault();
+        renderRecords();
         filterModal.classList.remove('is-active');
     })
+})
+
+onLoad(function(){
+    //constructor
+
 })
 
 onLoad(function(){
@@ -117,7 +125,7 @@ onLoad(function(){
         let value = e.target.value;
         rowsPerPage = value;
 
-        numberOfRowsPerPageTag.innerHTML = value;
+        numberOfRowsPerPageTag.innerHTML = `Rows Per Page : ${value}`;
     })
 
 })
