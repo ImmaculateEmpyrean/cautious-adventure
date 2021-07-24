@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { startDate,endDate,transactionType,instigator,rowsPerPage,pageNumber } from "./filterVariables.js";
 import onLoad from "./onLoad.js";
 import { renderRecords } from "./populateRecords.js";
@@ -27,15 +28,21 @@ onLoad(function(){
 
 onLoad(function(){
     //setup default filters
-    // startDate = `${e.detail.data.value()} 00:00:00`; //format must be preserved 
-        
-    // let startDateTag = document.getElementById('start-date-tag');
-    // startDateTag.innerHTML = `Start Date : ${e.detail.data.value()}`;
+    let now = moment(Date.now());
+    now = now.format('YYYY-MM-DD')
 
-    // endDate = `${e.detail.data.value()} 23:59:59`; //format must be preserved 
+    let lastMonth = moment(Date.now()).subtract(1, 'M');
+    lastMonth = lastMonth.format('YYYY-MM-DD')
+
+    startDate = `${lastMonth} 00:00:00`; //format must be preserved 
         
-    // let endDateTag = document.getElementById('end-date-tag');
-    // endDateTag.innerHTML = `End Date : ${e.detail.data.value()}`;
+    let startDateTag = document.getElementById('start-date-tag');
+    startDateTag.innerHTML = `Start Date : ${lastMonth}`;
+
+    endDate = `${now} 23:59:59`; //format must be preserved 
+        
+    let endDateTag = document.getElementById('end-date-tag');
+    endDateTag.innerHTML = `End Date : ${now}`;
 })
 
 onLoad(function(){
